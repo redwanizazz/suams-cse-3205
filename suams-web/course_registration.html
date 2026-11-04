@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SUAMS Course Registration</title>
+</head>
+
+<body>
+
+    <h1>SUAMS Course Registration</h1>
+
+    <label for="studentName">Student Name:</label>
+    <input type="text" id="studentName">
+
+    <br><br>
+
+    <label for="course">Select Course:</label>
+    <select id="course">
+        <option value="">Select a course</option>
+        <option value="CSE3205">CSE 3205 - Software Engineering</option>
+        <option value="CSE3203">CSE 3203</option>
+    </select>
+
+    <br><br>
+
+    <button id="registerBtn" onclick="registerCourse()">Register Course</button>
+
+    <p id="result"></p>
+
+    <script>
+        function registerCourse() {
+            const studentName =
+                document.getElementById("studentName").value;
+
+            const course =
+                document.getElementById("course").value;
+
+            const result =
+                document.getElementById("result");
+
+            if (studentName === "") {
+                result.innerText = "Student name is required";
+                return;
+            }
+
+            if (course === "") {
+                result.innerText = "Please select a course";
+                return;
+            }
+
+            result.innerText = "Registration Successful";
+        }
+    </script>
+
+</body>
+</html>
