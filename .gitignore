@@ -1,0 +1,19 @@
+# Compiled files
+*.exe
+*.o
+*.out
+
+# VS Code local settings
+.vscode/
+
+# LaTeX temporary files
+*.aux
+*.log
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# OS files
+Thumbs.db
+.DS_Store
