@@ -1,159 +1,137 @@
 # SUAMS – Smart University Academic Management System
 
-A university academic management system project developed for **CSE 3205 – Software Engineering**. This repository demonstrates software development, testing, automation, and configuration management practices through a Course Registration module.
+A university academic management system project developed for **CSE 3205 – Software Engineering** at Rajshahi University of Engineering & Technology (RUET). This repository demonstrates implementation, software testing, browser automation, continuous integration, and configuration management.
 
 ## Project Overview
 
-The **Smart University Academic Management System (SUAMS)** aims to support academic activities within a university environment.
-
-This repository focuses on the Course Registration module and demonstrates how software engineering concepts can be applied through:
-
-- C++ implementation of course registration logic.
-- Unit testing with GoogleTest.
-- Browser automation using Selenium.
-- Continuous Integration (CI) using GitHub Actions.
-- Version control and collaboration using Git and GitHub.
+The Smart University Academic Management System (SUAMS) is intended to support academic activities within a university. This coursework repository demonstrates selected components through C++ modules, automated tests, a simple web interface, and a GitHub-based workflow.
 
 ## Repository Structure
 
 ```text
 suams-cse-3205/
-│
 ├── .github/
 │   └── workflows/
 │       └── cpp-tests.yml
-│
 ├── suams-testing/
+│   ├── blackbox_marks_test.cpp
+│   ├── continuous_assessment.cpp
+│   ├── continuous_assessment.h
 │   ├── course_registration.cpp
 │   ├── course_registration.h
-│   └── course_registration_test.cpp
-│
+│   ├── course_registration_test.cpp
+│   ├── integration_result_test.cpp
+│   ├── integration_student_course_test.cpp
+│   ├── marks_validation.cpp
+│   ├── marks_validation.h
+│   ├── result_processing.cpp
+│   ├── result_processing.h
+│   ├── result_processing_test.cpp
+│   ├── role_based_access.cpp
+│   ├── role_based_access.h
+│   ├── student_information.cpp
+│   ├── student_information.h
+│   ├── system_course_registration_test.cpp
+│   ├── system_result_processing_test.cpp
+│   └── system_role_access_test.cpp
 ├── suams-web/
 │   ├── course_registration.html
 │   └── selenium_test.py
-│
 ├── .gitignore
 └── README.md
 ```
 
+Generated executable files are intentionally excluded from version control. Compile the tests locally or use the GitHub Actions workflow to run them.
+
 ## Implemented Components
 
-### 1. Course Registration Module
+### 1. Course Registration
 
 **Location:** `suams-testing/`
 
-The module implements course registration validation using C++.
+The C++ module validates student registration based on:
+- Student account activity.
+- Prerequisite completion.
+- Available course seats.
+- The maximum credit limit of 21 credits.
 
-It checks the following conditions:
+### 2. Examination Result Processing
 
-- Whether the student is active.
-- Whether the required prerequisite has been completed.
-- Whether seats are available.
-- Whether the registration exceeds the maximum credit limit of 21 credits.
+The result-processing components demonstrate continuous-assessment mark aggregation, GPA calculation using course credits, marks validation, and role-based access control for academic actions.
 
-The module returns an appropriate registration status based on these conditions.
+### 3. Automated Testing – GoogleTest
 
-### 2. Unit Testing – GoogleTest
+Eight GoogleTest executables cover the following test suites:
 
-**Location:** `suams-testing/course_registration_test.cpp`
+| Test suite | Coverage |
+|---|---|
+| `course_registration_test.cpp` | Registration decisions and credit-limit boundary values |
+| `result_processing_test.cpp` | GPA calculation, zero credits, and unequal credits |
+| `blackbox_marks_test.cpp` | Equivalence partitions for valid and invalid marks |
+| `integration_student_course_test.cpp` | Student Information and Course Registration integration |
+| `integration_result_test.cpp` | Continuous Assessment and final-exam mark aggregation |
+| `system_course_registration_test.cpp` | End-to-end course registration scenarios |
+| `system_result_processing_test.cpp` | End-to-end result-processing scenarios |
+| `system_role_access_test.cpp` | Role permissions and rejected access |
 
-GoogleTest is used to verify the Course Registration module.
+### 4. Web Interface and Selenium
 
-The committed test checks whether a valid student can successfully register for a course when all registration conditions are satisfied.
+**Location:** `suams-web/`
 
-### 3. Web Interface
-
-**Location:** `suams-web/course_registration.html`
-
-A simple HTML-based Course Registration interface demonstrates the registration workflow.
-
-It allows a user to:
-
-- Enter a student name.
-- Select a course.
-- Submit a registration request.
-- View the registration result.
-
-The interface includes basic input validation.
-
-### 4. Browser Automation – Selenium
-
-**Location:** `suams-web/selenium_test.py`
-
-Selenium WebDriver is used to automate the browser-based registration process.
-
-The script:
-
-1. Opens the Course Registration page in Chrome.
-2. Enters a student name.
-3. Selects a course.
-4. Clicks the Register Course button.
-5. Verifies the registration result.
-6. Saves a screenshot of the test execution.
+The HTML registration page provides a basic workflow for entering a student name, selecting a course, submitting a registration, and viewing the result. The Selenium script automates the browser workflow, checks the displayed result, and saves a screenshot.
 
 ## Technologies Used
 
 | Technology | Purpose |
 |---|---|
-| C++ | Course Registration logic |
-| GoogleTest | Unit testing |
-| HTML and JavaScript | Registration interface |
-| Python | Selenium test automation |
-| Selenium WebDriver | Browser automation |
-| Git | Version control |
-| GitHub | Repository hosting and collaboration |
-| GitHub Actions | Continuous Integration |
+| C++17 | Academic module implementation |
+| GoogleTest | Unit, integration, and system test execution |
+| HTML and JavaScript | Demonstration registration interface |
+| Python and Selenium | Browser test automation |
+| Git and GitHub | Version control and collaboration |
+| GitHub Actions | Automated build and test pipeline |
 
 ## Getting Started
 
 ### Prerequisites
 
-Install the following tools:
-
-- GCC / G++ compiler with C++17 support
+- GCC/G++ with C++17 support
 - GoogleTest
 - Python 3
 - Google Chrome
 - Selenium
 - Git
 
-### 1. Clone the Repository
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/redwanizazz/suams-cse-3205.git
-```
-
-Navigate to the project directory:
-
-```bash
 cd suams-cse-3205
 ```
 
-### 2. Compile and Run C++ Unit Tests
+### 2. Compile and run a GoogleTest suite
 
-Compile the Course Registration module and its GoogleTest file:
+For example, to run Course Registration tests:
 
 ```bash
 g++ -std=c++17 suams-testing/course_registration.cpp suams-testing/course_registration_test.cpp -lgtest -pthread -o course_registration_tests
 ```
 
-Run the test executable:
-
-**Windows PowerShell:**
+Run on Windows PowerShell:
 
 ```powershell
 .\course_registration_tests.exe
 ```
 
-**Linux:**
+Run on Linux:
 
 ```bash
 ./course_registration_tests
 ```
 
-Make sure GoogleTest is installed and its headers and libraries are accessible to the compiler.
+The other test suites can be compiled with their corresponding module source files. The GitHub Actions workflow compiles and runs all eight suites automatically.
 
-### 3. Run Selenium Automation
+### 3. Run Selenium automation
 
 Install Selenium:
 
@@ -161,62 +139,35 @@ Install Selenium:
 pip install selenium
 ```
 
-Navigate to the web interface directory:
+Then run:
 
 ```bash
 cd suams-web
-```
-
-Run the automation script:
-
-```bash
 python selenium_test.py
 ```
 
-Google Chrome must be installed. Selenium Manager can automatically manage the appropriate ChromeDriver in supported environments.
-
-The script opens the local registration page, performs the registration workflow, verifies the expected result, and saves a screenshot.
+Google Chrome must be installed. Selenium Manager can manage the compatible ChromeDriver in supported environments.
 
 ## Continuous Integration – GitHub Actions
 
-GitHub Actions is configured to automatically compile and execute the C++ Course Registration tests.
+**Workflow:** `.github/workflows/cpp-tests.yml`
 
-**Workflow file:**
+The workflow runs on pushes to `main` and `feature/course-registration`, and on pull requests targeting `main`. It checks out the repository, installs the compiler and GoogleTest, then compiles and executes all eight C++ test suites. A failed compilation or test causes the workflow to fail.
 
-```text
-.github/workflows/cpp-tests.yml
-```
-
-The workflow runs on:
-
-- Pushes to the `main` branch.
-- Pushes to the `feature/course-registration` branch.
-- Pull Requests targeting `main`.
-
-The CI pipeline performs the following steps:
-
-1. Checks out the repository.
-2. Installs the required compiler and GoogleTest dependencies.
-3. Compiles the Course Registration tests.
-4. Executes the test suite.
-
-This helps identify build and testing issues during development and integration.
+Selenium is run separately and is not part of this C++ GitHub Actions workflow.
 
 ## Version Control Workflow
 
-Git and GitHub are used to manage source-code changes.
+The project uses a feature-branch workflow:
 
-The project follows a feature-branch workflow:
+1. Keep stable code in `main`.
+2. Create a feature branch for each change.
+3. Commit and push changes with meaningful messages.
+4. Open a Pull Request for review.
+5. Merge approved changes into `main`.
+6. Use release tags to identify stable versions.
 
-1. Maintain stable code in the `main` branch.
-2. Create separate feature branches for development.
-3. Commit changes with meaningful messages.
-4. Push feature branches to GitHub.
-5. Create Pull Requests for review.
-6. Merge approved changes into `main`.
-7. Use release tags to identify stable versions.
-
-Example commands:
+Example:
 
 ```bash
 git checkout -b feature/course-registration
@@ -228,10 +179,10 @@ git push -u origin feature/course-registration
 ## Project Objectives
 
 - Apply software engineering principles to a university management system.
-- Implement and validate academic registration logic.
-- Practice unit testing and browser-based testing.
-- Understand automated testing and Continuous Integration.
-- Apply Git-based version control and collaborative development practices.
+- Implement and validate academic registration and result-processing logic.
+- Practice unit, integration, system, and black-box testing.
+- Apply browser automation and continuous integration.
+- Use Git and GitHub for configuration management.
 
 ## Academic Information
 
