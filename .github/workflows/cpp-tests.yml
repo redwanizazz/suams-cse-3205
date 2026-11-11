@@ -1,4 +1,3 @@
-```yaml
 name: SUAMS C++ Test Suites
 
 on:
@@ -71,4 +70,3 @@ jobs:
           run_test system_role_access_tests \
             suams-testing/role_based_access.cpp \
             suams-testing/system_role_access_test.cpp
-```
