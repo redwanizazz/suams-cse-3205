@@ -196,10 +196,9 @@ git push -u origin feature/course-registration
 
 ## Author
 
-**A.N.M. Sharzil Izaz Mahmud**  
+**A.N.M. Sharzil Izaz Mahmud**
+2203160
 Department of Computer Science and Engineering  
 Rajshahi University of Engineering & Technology (RUET)
 
 ---
-
-*This repository is an academic software engineering project developed for CSE 3205.*
