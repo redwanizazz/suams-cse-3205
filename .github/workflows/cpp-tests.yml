@@ -1,11 +1,11 @@
-name: C++ Course Registration Tests
+```yaml
+name: SUAMS C++ Test Suites
 
 on:
   push:
     branches:
       - main
       - feature/course-registration
-
   pull_request:
     branches:
       - main
@@ -15,23 +15,60 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Check out repository
         uses: actions/checkout@v6
 
       - name: Install compiler and GoogleTest
         run: |
           sudo apt-get update
-          sudo apt-get install -y g++ cmake libgtest-dev
+          sudo apt-get install -y g++ libgtest-dev
 
-      - name: Compile tests
+      - name: Compile and run all GoogleTest suites
+        shell: bash
         run: |
-          g++ -std=c++17 \
-          suams-testing/course_registration.cpp \
-          suams-testing/course_registration_test.cpp \
-          -lgtest \
-          -pthread \
-          -o course_registration_tests
+          set -euo pipefail
 
-      - name: Run tests
-        run: |
-          ./course_registration_tests
+          run_test() {
+            local test_name="$1"
+            shift
+            echo "::group::${test_name}"
+            g++ -std=c++17 "$@" -lgtest -pthread -o "$RUNNER_TEMP/${test_name}"
+            "$RUNNER_TEMP/${test_name}"
+            echo "::endgroup::"
+          }
+
+          run_test course_registration_tests \
+            suams-testing/course_registration.cpp \
+            suams-testing/course_registration_test.cpp
+
+          run_test result_processing_tests \
+            suams-testing/result_processing.cpp \
+            suams-testing/result_processing_test.cpp
+
+          run_test blackbox_marks_tests \
+            suams-testing/marks_validation.cpp \
+            suams-testing/blackbox_marks_test.cpp
+
+          run_test integration_student_course_tests \
+            suams-testing/student_information.cpp \
+            suams-testing/course_registration.cpp \
+            suams-testing/integration_student_course_test.cpp
+
+          run_test integration_result_tests \
+            suams-testing/continuous_assessment.cpp \
+            suams-testing/integration_result_test.cpp
+
+          run_test system_course_registration_tests \
+            suams-testing/student_information.cpp \
+            suams-testing/course_registration.cpp \
+            suams-testing/system_course_registration_test.cpp
+
+          run_test system_result_processing_tests \
+            suams-testing/continuous_assessment.cpp \
+            suams-testing/result_processing.cpp \
+            suams-testing/system_result_processing_test.cpp
+
+          run_test system_role_access_tests \
+            suams-testing/role_based_access.cpp \
+            suams-testing/system_role_access_test.cpp
+```
